@@ -1,8 +1,9 @@
 <template>
   <div class="admin_wrapper">
+    <section v-if="currentUser !== null">
     <div class="current_user_wrapper">
       <span>Logged in as: </span>
-      {{currentUser}}
+      {{currentUser.user.email}}
       <button type="button" class="btn_red" @click.prevent="signOut">サインアウト</button>
     </div>
     <!-- form -->
@@ -21,7 +22,9 @@
           <tr>
             <td>{{item.name}}</td>
             <td>
-              <button type="button" class="btn_red">
+              <button 
+              @click.prevent="removeMenuItem(item.id)"
+              type="button" class="btn_red">
                 &times;
               </button>
             </td>
@@ -40,24 +43,27 @@
             <th>価格</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody v-for="(order, index) in getOrders" :key="order.id">
           <tr class="order_number">
             <th colspan="4">
-              <strong>注文数: 4</strong>
-              <button type="button" class="btn_red">&times;</button>
+              <strong>注文数: {{ index + 1 }}</strong>
+              <button 
+              @click.prevent="removeOrder(order.id)"
+              type="button" class="btn_red">&times;</button>
             </th>
           </tr>
-          <tr>
-            <td>Margatita</td>
-            <td>9"</td>
-            <td>2</td>
-            <td>$13</td>
+          <tr v-for="orderItem in order.pizzas" :key="orderItem.id">
+            <td>{{orderItem.name}}</td>
+            <td>{{orderItem.size}}</td>
+            <td>{{orderItem.quantity}}</td>
+            <td>{{orderItem.price}}</td>
           </tr>
         </tbody>
       </table>
     </div>
+    </section>
     <!-- login -->
-    <login/>
+    <login v-if="currentUser == null"/>
     <!-- login -->
   </div>
 </template>
@@ -84,6 +90,9 @@ export default {
       return this.$store.getters.numberOfOrders
     },currentUser() {
       return this.$store.getters.currentUser
+    },
+    getOrders() {
+      return this.$store.getters.getOrders
     }
   },
   // コンポーネントナビゲーション
@@ -96,8 +105,14 @@ export default {
   //   })
   // },
   methods: {
-    async signOut () {
+    signOut () {
      this.$store.dispatch('signOut')
+    },
+    removeMenuItem(id) {
+      this.$store.dispatch('removeMenuItem', id)
+    },
+    removeOrder(id) {
+      this.$store.dispatch('removeOrder', id)
     }
   }
 }

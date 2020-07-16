@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent="add">
-    <h3>ピザのご注文</h3>
+    <h3>メニューを追加する</h3>
     <div class="form-group">
       <label for="name">商品名</label>
       <input type="text" id="name" v-model="newPizza.name">
@@ -39,7 +39,6 @@
 </template>
 
 <script>
-import { db } from '../firebase'
 export default {
   name: 'addNewPizza',
   data () {
@@ -60,10 +59,10 @@ export default {
       }
     }
   },
+  // メニューを追加する
   methods: {
     add() {
-    //  alert('form')
-     db.collection('menu').add(this.newPizza)
+      this.$store.dispatch('addMenuItem', this.newPizza)
     }
   }
 }
