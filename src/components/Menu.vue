@@ -111,7 +111,12 @@ export default {
       
     },
     addNewOrder() {
-      this.$store.commit('addOrder', this.basket)
+      const order = {
+        pizzas: { ...this.basket },
+        createdAt: new Date(),
+      }
+      // this.$store.commit('addOrder', this.basket)
+      this.$store.dispatch('addNewOrder', order)
       this.basket = []
       this.basketText = 'ありがとうございます'
     }
