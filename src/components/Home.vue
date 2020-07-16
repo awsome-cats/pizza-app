@@ -21,6 +21,10 @@ export default {
 </script>
 
 <style scoped>
+h2,
+h3 {
+  margin: 2%;
+}
 .background {
   background: url('../assets/images/dough.jpg') center;
   background-size: cover;

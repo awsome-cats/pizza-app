@@ -2,7 +2,8 @@
   <div class="admin_wrapper">
     <div class="current_user_wrapper">
       <span>Logged in as: </span>
-      <button type="button" class="btn_red" @click.prevent="signOut">Sign out</button>
+      {{currentUser}}
+      <button type="button" class="btn_red" @click.prevent="signOut">サインアウト</button>
     </div>
     <!-- form -->
     <NewPizza/>
@@ -16,9 +17,9 @@
             <th>メニューから削除</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody v-for="item in getMenuItems" :key="item.id">
           <tr>
-            <td>Margarita</td>
+            <td>{{item.name}}</td>
             <td>
               <button type="button" class="btn_red">
                 &times;
@@ -29,7 +30,7 @@
       </table>
     </div>
     <div class="orders_wrapper">
-      <h3>Current orders (5):</h3>
+      <h3>Current orders ({{numberOfOrders}}):</h3>
       <table>
         <thead>
           <tr>
@@ -55,14 +56,15 @@
         </tbody>
       </table>
     </div>
+    <!-- login -->
     <login/>
+    <!-- login -->
   </div>
 </template>
 
 <script>
 import addNewPizza from './NewPizza'
 import Login from './Login'
-import { firebaseAuth } from '../firebase'
 export default {
   name: 'admin',
   components: {
@@ -72,6 +74,16 @@ export default {
   data() {
     return {
       name: 'kenny'
+    }
+  },
+  computed: {
+    getMenuItems () {
+      return this.$store.state.menuItems
+    },
+    numberOfOrders() {
+      return this.$store.getters.numberOfOrders
+    },currentUser() {
+      return this.$store.getters.currentUser
     }
   },
   // コンポーネントナビゲーション
@@ -85,11 +97,7 @@ export default {
   // },
   methods: {
     async signOut () {
-      try {
-        await firebaseAuth.signOut()
-      }catch(error) {
-        alert(`signOut${error}`)
-      }
+     this.$store.dispatch('signOut')
     }
   }
 }
