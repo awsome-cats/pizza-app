@@ -78,7 +78,7 @@ export default {
   },
   computed: {
     getMenuItems () {
-      return this.$store.state.menuItems
+      return this.$store.getters.getMenuItems
     },
     numberOfOrders() {
       return this.$store.getters.numberOfOrders

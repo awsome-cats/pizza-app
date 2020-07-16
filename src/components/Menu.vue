@@ -3,7 +3,7 @@
     <!-- menu -->
     <div class="menu">
       <h3>~ Authentic handmade pizza ~</h3>
-      <table v-for="item in getMenuItems" :key="item.name">
+      <table v-for="item in getMenuItems" :key="item.id">
         <tbody>
           <tr>
             <td>
