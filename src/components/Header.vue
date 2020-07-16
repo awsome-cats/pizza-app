@@ -6,24 +6,22 @@
     </div>
     <nav>
       <ul>
-        <li>
-          <a href="/">home</a>
-        </li>
+        <router-link :to="{ name: 'homeLink' }" tag="li">
+          ホーム
+        </router-link>
         <span>~</span>
-        <li>
-          <a href="/menu">menu</a>
-        </li>
+        <router-link :to="{ name: 'menuLink' }" tag="li">
+          メニュー
+        </router-link>
         <span>~</span>
-        <li>
-          <a href="/contact">contact us</a>
-        </li>
+        <router-link :to="{ name: 'contactLink' }" tag="li">
+          コンタクト
+        </router-link>
         <span>~</span>
-        <li>
-          <a href="/about">about us</a>
-        </li>
+        <router-link :to="{ name: 'aboutLink' }" tag="li">
+          アバウト
+        </router-link>
         <span>~</span>
-        
-
       </ul>
     </nav>
   </header>
@@ -31,7 +29,12 @@
 
 <script>
 export default {
-  name: 'appHeader'
+  name: 'appHeader',
+  data () {
+    return {
+      
+    }
+  }
 }
 </script>
 
@@ -39,34 +42,30 @@ export default {
 h1 {
   font-size: 1.3em;
 }
-
 .header_logo {
   background-image: linear-gradient(
     45deg,
     #d85226 25%,
     #f79e38 25% 50%,
     #d85226 50% 75%,
+    #f79e38 75%,
     #f79e38 100%
   );
-
   background-size: 80px 80px;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-top: 10px;
 }
-.heaer_logo img {
+.header_logo img {
   max-width: 25vw;
 }
-
 ul {
   padding: 10px 0;
 }
-
 li {
   display: inline-block;
 }
-
 @media screen and (min-width: 900px) {
   .header_logo img {
     max-width: 20vw;
