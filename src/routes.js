@@ -15,6 +15,7 @@ export const routes = [
   {
     path: '/',
     name: 'homeLink',
+    // 名前付きrouter-view
     components: {
       default: Home,
       'ordering-guide': OrderingGuide,

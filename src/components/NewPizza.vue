@@ -2,7 +2,7 @@
   <form @submit.prevent="add">
     <h3>ピザのご注文</h3>
     <div class="form-group">
-      <label for="name">名前</label>
+      <label for="name">商品名</label>
       <input type="text" id="name" v-model="newPizza.name">
     </div>
     <div class="form-group">
@@ -14,7 +14,7 @@
       <strong>オプション1:</strong>
     </p>
     <div class="form-group">
-      <label for="size1">サイズ ()</label>
+      <label for="size1">サイズ</label>
       <input v-model="newPizza.options[0].size" type="text" id="size1">
     </div>
     <div class="form-group">
@@ -26,7 +26,7 @@
       <strong>オプション2:</strong>
     </p>
     <div class="form-group">
-      <label for="size2">サイズ ()</label>
+      <label for="size2">サイズ</label>
       <input v-model="newPizza.options[1].size" type="text" id="size2">
     </div>
     <div class="form-group">
@@ -34,7 +34,7 @@
       <input v-model="newPizza.options[1].price" type="text" id="price2">
     </div>
     <button type="submit"  class="btn_green">追加</button>
-    {{this.newPizza}}
+   
   </form>
 </template>
 

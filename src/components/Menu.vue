@@ -30,7 +30,7 @@
     </div>
     <!-- shopping basket -->
     <div class="basket">
-      <h3>~ Basket ~</h3>
+      <h3>~ カート ~</h3>
       <div v-if="basket.length > 0">
         
         <table>
@@ -47,8 +47,8 @@
           </tbody>
         </table>
         
-        <p>Order total: {{ }}</p>
-        <button class="btn_green" >Place Order</button>
+        <p>Order total: {{ total }}</p>
+        <button @click="addNewOrder" class="btn_green" >Place Order</button>
       </div>
       <div v-else>
         <p>{{  basketText }}</p>
@@ -65,46 +65,20 @@ export default {
     return {
       basket: [],
       basketText: "カートは空です",
-      getMenuItems: {
-        1: {
-          'name': 'Margherita',
-          'description': 'A delicious tomato based pizza topped with mozzarella',
-          'options': [{
-            'size': 9,
-            'price': 6.95
-          }, {
-            'size': 12,
-            'price': 10.95
-          }]
-        },
-        2: {
-          'name': 'Pepperoni',
-          'description': 'A delicious tomato based pizza topped with mozzarella and pepperoni',
-          'options': [{
-            'size': 9,
-            'price': 7.95
-          }, {
-            'size': 12,
-            'price': 12.95
-          }]
-        },
-        3: {
-          'name': 'Ham and Pineapple',
-          'description': 'A delicious tomato based pizza topped with mozzarella, ham and pineapple',
-          'options': [{
-            'size': 9,
-            'price': 7.95
-          }, {
-            'size': 12,
-            'price': 12.95
-          }]
-        }
-
-      }
+      
     };
   },
   computed: {
-    
+    getMenuItems () {
+      return this.$store.getters.getMenuItems
+    },
+    total() {
+      let totalCost = 0
+       this.basket.map(item => {
+        totalCost+= item.quantity * item.price
+      })
+      return totalCost
+    }
   },
   methods: {
     async addToBasket(item, option) {
@@ -135,6 +109,11 @@ export default {
     increaseQuantity(item) {
       item.quantity++
       
+    },
+    addNewOrder() {
+      this.$store.commit('addOrder', this.basket)
+      this.basket = []
+      this.basketText = 'ありがとうございます'
     }
   },
     
